@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35013.160
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Graphium", "Graphium\Graphium.csproj", "{88605225-D352-4785-A2CD-08E44E0B82AA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{88605225-D352-4785-A2CD-08E44E0B82AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88605225-D352-4785-A2CD-08E44E0B82AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88605225-D352-4785-A2CD-08E44E0B82AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88605225-D352-4785-A2CD-08E44E0B82AA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BD3BD544-3A58-4A71-8D5D-35AD2F9CC6EA}
+	EndGlobalSection
+EndGlobal
