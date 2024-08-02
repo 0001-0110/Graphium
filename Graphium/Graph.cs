@@ -16,8 +16,8 @@ namespace Graphium
 
 		public abstract class Edge
 		{
-			private TVertex _vertex1;
-			private TVertex _vertex2;
+			protected TVertex _vertex1;
+			protected TVertex _vertex2;
 
 			protected Edge(TVertex vertex1, TVertex vertex2)
 			{

@@ -23,6 +23,9 @@ namespace Graphium
 
         public new class Edge : Graph<TVertex, TEdge>.Edge
         {
+            public TVertex Source => _vertex1;
+            public TVertex Destination => _vertex2;
+
             public Edge(TVertex vertex1, TVertex vertex2) : base(vertex1, vertex2) { }
         }
     }
