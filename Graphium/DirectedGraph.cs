@@ -6,13 +6,10 @@ namespace Graphium
     {
         public new class Vertex : Graph<TVertex, TEdge>.Vertex
         {
-            private IList<TEdge> _incomingEdges;
-            private IList<TEdge> _outgoingEdges;
+            internal IList<TEdge> _incomingEdges;
+            internal IList<TEdge> _outgoingEdges;
 
-            public override IEnumerable<TEdge> GetEdges()
-            {
-                return new ReadOnlyCollection<TEdge>(_outgoingEdges);
-            }
+            public override IEnumerable<TEdge> Edges => new ReadOnlyCollection<TEdge>(_outgoingEdges);
 
             public Vertex()
             {
@@ -27,6 +24,12 @@ namespace Graphium
             public TVertex Destination => _vertex2;
 
             public Edge(TVertex vertex1, TVertex vertex2) : base(vertex1, vertex2) { }
+        }
+
+        public void Connect(TEdge edge)
+        {
+            edge.Source._outgoingEdges.Add(edge);
+            edge.Destination._incomingEdges.Add(edge);
         }
     }
 

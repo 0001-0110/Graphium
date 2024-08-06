@@ -1,46 +1,90 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections;
 
 namespace Graphium
 {
-	public abstract class Graph<TVertex, TEdge> where TVertex : Graph<TVertex, TEdge>.Vertex where TEdge : Graph<TVertex, TEdge>.Edge
-	{
-		public abstract class Vertex
-		{
-			public abstract IEnumerable<TEdge> GetEdges();
+    public abstract class Graph<TVertex, TEdge> where TVertex : Graph<TVertex, TEdge>.Vertex where TEdge : Graph<TVertex, TEdge>.Edge
+    {
+        private class VertextCollection : ICollection<TVertex>
+        {
+            private readonly List<TVertex> _edges;
 
-			public IEnumerable<TVertex> GetNeighbors()
-			{
-				return GetEdges().Select(edge => edge.GetOppositeNeighbor(this));
-			}
-		}
+            public int Count => _edges.Count;
+            public bool IsReadOnly => false;
 
-		public abstract class Edge
-		{
-			protected TVertex _vertex1;
-			protected TVertex _vertex2;
+            public VertextCollection()
+            {
+                _edges = new List<TVertex>();
+            }
 
-			protected Edge(TVertex vertex1, TVertex vertex2)
-			{
-				_vertex1 = vertex1;
-				_vertex2 = vertex2;
-			}
+            public void Add(TVertex vertex)
+            {
+                _edges.Add(vertex);
+            }
 
-			public TVertex GetOppositeNeighbor(Vertex vertex)
-			{
-				if (vertex == _vertex1)
-					return _vertex2;
-				if (vertex == _vertex2)
-					return _vertex1;
-				throw new ArgumentException("You seem to be confused about life");
-			}
-		}
+            public bool Remove(TVertex vertex)
+            {
+                throw new NotImplementedException();
+            }
 
-		private IList<TVertex> _vertices;
-		public IEnumerable<TVertex> Vertices { get { return new ReadOnlyCollection<TVertex>(_vertices); } }
+            public void Clear()
+            {
+                _edges.Clear();
+            }
 
-		public Graph()
-		{
-			_vertices = new List<TVertex>();
-		}
-	}
+            public bool Contains(TVertex vertex)
+            {
+                return _edges.Contains(vertex);
+            }
+
+            public void CopyTo(TVertex[] array, int arrayIndex)
+            {
+                _edges.CopyTo(array, arrayIndex);
+            }
+
+            public IEnumerator<TVertex> GetEnumerator()
+            {
+                return _edges.GetEnumerator();
+            }
+
+            IEnumerator IEnumerable.GetEnumerator()
+            {
+                return _edges.GetEnumerator();
+            }
+        }
+
+        public abstract class Vertex
+        {
+            public abstract IEnumerable<TEdge> Edges { get; }
+
+            public IEnumerable<TVertex> Neighbors => Edges.Select(edge => edge.GetOppositeNeighbor(this));
+        }
+
+        public abstract class Edge
+        {
+            internal TVertex _vertex1;
+            internal TVertex _vertex2;
+
+            protected Edge(TVertex vertex1, TVertex vertex2)
+            {
+                _vertex1 = vertex1;
+                _vertex2 = vertex2;
+            }
+
+            public TVertex GetOppositeNeighbor(Vertex vertex)
+            {
+                if (vertex == _vertex1)
+                    return _vertex2;
+                if (vertex == _vertex2)
+                    return _vertex1;
+                throw new ArgumentException("You seem to be confused about life");
+            }
+        }
+
+        public ICollection<TVertex> Vertices { get; }
+
+        public Graph()
+        {
+            Vertices = new VertextCollection();
+        }
+    }
 }
